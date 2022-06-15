@@ -1,5 +1,4 @@
 use std::{future::Future, marker::PhantomData, pin::Pin};
-
 use axum::{
     http::Request,
     response::{IntoResponse, Response},
@@ -115,6 +114,11 @@ where
             _phantom: PhantomData,
         }
     }
+}
+
+/// Returns true if it is running on AWS Lambda
+pub fn is_running_on_lambda() -> bool {
+    std::env::var("AWS_LAMBDA_RUNTIME_API").is_ok()
 }
 
 #[cfg(test)]
